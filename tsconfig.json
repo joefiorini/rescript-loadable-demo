@@ -1,7 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "esModuleInterop": true
+        "allowSyntheticDefaultImports": true,
+        "module": "esnext",
+        "noEmit": true,
+        "target": "esnext",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": false
     }
 }

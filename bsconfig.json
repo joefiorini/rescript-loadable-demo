@@ -9,23 +9,35 @@
     "-bs-super-errors"
   ],
   "package-specs": {
-    "module": "es6",
+    "module": "commonjs",
     "in-source": true
   },
   "reason": {
     "react-jsx": 3
   },
-  "suffix": ".bs.js",
+  "suffix": ".js",
   "bs-dependencies": [
     "@rescript/react",
     "bs-css",
     "bs-css-emotion",
-    "bs-fetch"
+    "bs-fetch",
+    "bs-express",
+    "@ryyppy/rescript-promise"
   ],
-  "gentypeconfig": {
-    "language": "typescript"
-  },
   "warnings": {
     "error": "+101"
+  },
+  "gentypeconfig": {
+    "language": "untyped",
+    "module": "es6",
+    "importPath": "relative",
+    "shims": {
+      "Js": "Js",
+      "ChunkExtractor": "ChunkExtractor"
+    },
+    "debug": {
+      "all": false
+    },
+    "exportInterfaces": false
   }
 }

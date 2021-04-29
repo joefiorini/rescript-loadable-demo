@@ -4,12 +4,13 @@
   "scripts": {
     "dev": "concurrently --names www,res,esb -c green.bold,red.bold,blue.bold --kill-others yarn:dev-server yarn:compile:watch yarn:bundle:watch",
     "compile:watch": "NINJA_ANSI_FORCED=1 bsb -make-world -w",
-    "bundle": "esbuild src/App.bs.js --outfile=www/app.js --minify --bundle --sourcemap --target=chrome58,firefox57,safari11,edge16 --define:process.env.NODE_ENV='\"development\"'",
+    "bundle": "webpack",
     "bundle:watch": "yarn bundle --watch --color=true",
     "dev-server": "PORT=5000 live-server www --host=localhost",
-    "build": "bsb -make-world",
-    "clean": "bsb -clean-world && rm -rf www/*.js",
-    "start": "ts-node-dev webpack-dev-server"
+    "build": "rescript build -with-deps",
+    "clean": "rescript clean",
+    "start": "ts-node-dev ./node_modules/.bin/webpack serve",
+    "start:ssr": "node-dev src/server/ServerMain.js"
   },
   "keywords": [
     "rescript"
@@ -17,9 +18,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@loadable/babel-plugin": "^5.13.2",
+    "@loadable/webpack-plugin": "^5.14.2",
+    "@types/loadable__server": "^5.12.5",
     "@types/node": "^14.14.41",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^3.11.3",
+    "@types/webpack-merge": "^5.0.0",
+    "babel-loader": "^8.2.2",
     "bs-platform": "*",
     "concurrently": "^6.0.2",
     "esbuild": "^0.11.11",
@@ -27,16 +34,31 @@
     "gentype": "^3.46.0",
     "html-webpack-plugin": "^5.3.1",
     "live-server": "^1.2.1",
+    "node-dev": "^6.7.0",
+    "nodemand": "^0.1.10",
     "prettier": "^2.2.1",
+    "rescript": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "tsc": "^1.20150623.0",
-    "webpack": "^5.35.0",
-    "webpack-dev-server": "^3.11.2"
+    "typescript": "^4.2.4",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-node-externals": "^3.0.0",
+    "webpack-shell-plugin-next": "^2.2.2"
   },
   "dependencies": {
+    "@loadable/component": "^5.14.1",
+    "@loadable/server": "^5.14.2",
     "@rescript/react": "^0.10.2",
+    "@ryyppy/rescript-promise": "^2.0.0",
     "bs-css-emotion": "^2.5.1",
+    "bs-express": "https://github.com/reasonml-community/bs-express",
     "bs-fetch": "^0.6.2",
-    "webpack-shell-plugin-next": "^2.2.2"
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }

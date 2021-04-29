@@ -1,19 +1,13 @@
-open Js.Promise
+open Promise
 
 @react.component
-let make = () => {
-  let (list, setList) = React.useState(() => None)
+let make = (~films=?) => {
+  let (list, setList) = React.useState(() => films)
 
   React.useEffect0(() => {
-    Fetch.fetch("https://ghibliapi.herokuapp.com/films")
-    |> then_(Fetch.Response.json)
-    |> then_(films => films->Js.Json.decodeArray->resolve)
-    |> then_(list =>
-      setList(_ =>
-        Js.Option.map((. films) => Belt.Array.map(films, film => film->Js.Json.decodeObject), list)
-      )->resolve
-    )
-    |> ignore
+    if Belt.Option.isNone(films) {
+      FetchFilms.get()->then(list => setList(_ => list)->resolve)->ignore
+    }
 
     None
   })
