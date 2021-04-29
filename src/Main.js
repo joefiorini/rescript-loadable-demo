@@ -6,6 +6,7 @@ var React = require("react");
 var Button = require("./Button.js");
 var GhibliList = require("./GhibliList.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
+var LazyComponentMod = require("./LazyComponentMod.js");
 
 function Main(Props) {
   var data = Props.data;
@@ -24,6 +25,8 @@ function Main(Props) {
                                     return prev + 1 | 0;
                                   }));
                     })
+                }), React.createElement(LazyComponentMod.make, {
+                  path: "./GhibliList"
                 }), React.createElement(GhibliList.make, tmp));
 }
 
